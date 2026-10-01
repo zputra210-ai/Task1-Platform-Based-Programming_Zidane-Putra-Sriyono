@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Simple Calculator</title>
+
+</head>
+
+
+<body>
+
+    <header>
+
+        <h1>Simple Calculator</h1>
+
+        <p>
+            Kalkulator sederhana menggunakan
+            Node.js dan Express.
+        </p>
+
+    </header>
+
+
+    <main>
+
+        <section>
+
+            <h2>Perhitungan</h2>
+
+
+            <label for="angka1">
+                Angka pertama
+            </label>
+
+            <br>
+
+            <input
+                type="number"
+                id="angka1"
+                placeholder="Masukkan angka"
+            >
+
+
+            <br><br>
+
+
+            <label for="operator">
+                Operator
+            </label>
+
+            <br>
+
+            <select id="operator">
+
+                <option value="+">+</option>
+                <option value="-">−</option>
+                <option value="*">×</option>
+                <option value="/">÷</option>
+
+            </select>
+
+
+            <br><br>
+
+
+            <label for="angka2">
+                Angka kedua
+            </label>
+
+            <br>
+
+            <input
+                type="number"
+                id="angka2"
+                placeholder="Masukkan angka"
+            >
+
+
+            <br><br>
+
+
+            <button onclick="hitung()">
+                Hitung
+            </button>
+
+
+            <h2 id="hasil">
+                Hasil: -
+            </h2>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            Simple Calculator
+        </p>
+
+    </footer>
+
+
+    <script>
+
+        async function hitung() {
+
+            const angka1 =
+                document.getElementById("angka1").value;
+
+            const operator =
+                document.getElementById("operator").value;
+
+            const angka2 =
+                document.getElementById("angka2").value;
+
+
+            const parameter = new URLSearchParams({
+
+                angka1: angka1,
+                operator: operator,
+                angka2: angka2
+
+            });
+
+
+            const response =
+                await fetch(`/hitung?${parameter}`);
+
+
+            const data =
+                await response.json();
+
+
+            if (data.berhasil) {
+
+                document.getElementById("hasil").textContent =
+                    `${angka1} ${operator} ${angka2} = ${data.hasil}`;
+
+            }
+
+            else {
+
+                document.getElementById("hasil").textContent =
+                    data.pesan;
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
